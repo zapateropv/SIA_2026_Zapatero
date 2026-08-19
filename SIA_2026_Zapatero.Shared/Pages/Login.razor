@@ -1,0 +1,36 @@
+﻿@page "/login"
+@using SIA_2026_Zapatero.Shared.Dmodel
+
+<div class="vh-100 d-flex justify-content-center align-items-center container">
+    <div class="card w-100 p-4 shadow-sm" style="max-width: 400px; border-radius: 12px;">
+        <EditForm Model="_loginModel">
+            <DataAnnotationsValidator/>
+            
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <InputText class="form-control" @bind-Value="_loginModel.Username" placeholder="Enter username" />
+                <ValidationMessage For="() => _loginModel.Username" class="mt-2 alert alert-danger" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <InputText class="form-control" @bind-Value="_loginModel.Password" placeholder="Enter password" />
+                <ValidationMessage For="() => _loginModel.Password" class="mt-2 alert alert-danger" />
+            </div>
+            <div class="mt-4 text-center">
+                <div class="text-muted small mb-0">
+                    <button class="btn btn-primary fw-semibold w-100 py-2" type="submit">Login</button>
+                    <hr />
+                    <NavLink class="text-decor-none" href="register">Don't have an account? Register</NavLink>
+                </div>
+              
+
+     
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    private LoginModel _loginModel = new();
+}
