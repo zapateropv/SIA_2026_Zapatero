@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SIA_2026_Zapatero.Shared/SIA_2026_Zapatero.Shared.csproj" />
+  <Project Path="SIA_2026_Zapatero.Web/SIA_2026_Zapatero.Web.csproj" />
+  <Project Path="SIA_2026_Zapatero/SIA_2026_Zapatero.csproj" />
+</Solution>
