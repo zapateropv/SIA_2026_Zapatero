@@ -15,6 +15,7 @@ namespace SIA_2026_Zapatero.Web.Services
         public AuthService(IDbContextFactory<DataContext> contextFactory, IPasswordHasher<User> passwordHasher)
         {
             _contextFactory = contextFactory;
+            _passwordHasher = passwordHasher;
         }
         public async Task<MethodResult> LoginAsync(LoginModel model)
         {

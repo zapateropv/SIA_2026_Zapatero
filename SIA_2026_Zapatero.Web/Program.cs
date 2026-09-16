@@ -26,6 +26,8 @@ builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
+//Auto db migration
+AutoMigrationDb(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -47,3 +49,12 @@ app.MapRazorComponents<App>()
         typeof(SIA_2026_Zapatero.Shared._Imports).Assembly);
 
 app.Run();
+
+static void AutoMigrationDb(IServiceProvider sp)
+{
+    using var scope = sp.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<IDbContextFactory<DataContext>>().CreateDbContext();
+
+    if (context.Database.GetPendingMigrations().Any())
+        context.Database.Migrate();
+}
