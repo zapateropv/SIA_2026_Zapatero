@@ -12,5 +12,9 @@ namespace SIA_2026_Zapatero.Shared.Dmodel
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public string Email { get; set; }
     }
 }
+

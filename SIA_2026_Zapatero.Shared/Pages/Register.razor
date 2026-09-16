@@ -1,12 +1,14 @@
 ﻿@page "/register"
-@using SIA_2026_Zapatero.Shared.Dmodel
+
+@inject NavigationManager NavigationManager
+@inject IAuthService AuthService
 
 <div class="vh-100 d-flex justify-content-center align-items-center container">
 
     <div class="card w-100 p-4 shadow-sm" style="max-width: 400px; border-radius: 12px;">
         <h3 class="text-primary fw-bold text-center" >PVZapatero Blazor App</h3>
         <h5 class="text-secondary text-center">Please register a new account</h5>
-        <EditForm Model="_registerModel">
+        <EditForm Model="_registerModel" OnValidSubmit="RegisterAsync">
             <DataAnnotationsValidator />
             
             <div class="mb-3">
@@ -29,15 +31,19 @@
                 <InputText class="form-control" @bind-Value="_registerModel.Password" placeholder="Enter Password" />
                 <ValidationMessage For="() => _registerModel.Password"  />
             </div>
+            @if (_errorMessage is not null)
+            {
+                <p>
+                       <label>@_errorMessage</label>
+                       <button onclick="() => _errorMessage = null"></button>
+                </p>
+            }
             <div class="mt-4 text-center">
                 <div class="text-muted small mb-0">
                     <button class="btn btn-primary fw-semibold w-100 py-2" type="submit">Register</button>
                     <hr />
                     <NavLink class="text-decor-none" href="login">Existing account? Login</NavLink>
                 </div>
-
-              
-
             </div>
         </EditForm>
     </div>
@@ -45,4 +51,19 @@
 
 @code {
     private RegisterModel _registerModel = new();
+    private string? _errorMessage;
+    private async Task RegisterAsync()
+    {
+
+        _errorMessage = null;
+        var result = await AuthService.RegisterAsync(_registerModel);
+
+        if(!result.IsSuccess)
+        {
+            _errorMessage = result.Error;
+            return;
+        }
+
+        NavigationManager.NavigateTo("login");
+    }
 }
