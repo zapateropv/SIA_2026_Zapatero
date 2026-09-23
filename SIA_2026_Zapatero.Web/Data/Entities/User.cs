@@ -16,6 +16,5 @@ namespace SIA_2026_Zapatero.Web.Data.Entities
         [Required]
         public string PasswordHash { get; set; }
 
-
     }
 }
